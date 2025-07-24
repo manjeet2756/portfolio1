@@ -139,7 +139,8 @@ const AppContent: React.FC = () => {
 
         {!isLoading && (
           <>
-            <Navigation currentSection={currentSection} onSectionChange={scrollToSection} />
+            {/* Remove Navigation */}
+            {/* <Navigation currentSection={currentSection} onSectionChange={scrollToSection} /> */}
             <VerticalNavigation currentSection={currentSection} onSectionChange={scrollToSection} />
             <ThemeSwitcher />
             <AIAssistant />

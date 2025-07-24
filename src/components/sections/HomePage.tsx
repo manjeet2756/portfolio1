@@ -10,7 +10,7 @@ interface HomePageProps {
 
 const HomePage: React.FC<HomePageProps> = ({ onSectionChange }) => {
   const { theme } = useTheme();
-  const { t } = useLanguage();
+  const { t, toggleLanguage, currentLanguage } = useLanguage();
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [nameTyped, setNameTyped] = useState('');
   
@@ -187,7 +187,7 @@ const HomePage: React.FC<HomePageProps> = ({ onSectionChange }) => {
 
           {/* Social Links */}
           <motion.div
-            className="flex space-x-4"
+            className="flex space-x-4 items-center"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 1.4 }}
@@ -230,61 +230,27 @@ const HomePage: React.FC<HomePageProps> = ({ onSectionChange }) => {
           {/* Profile Image Container */}
           <div className="relative">
             <motion.div
-              className="w-80 h-80 mx-auto rounded-full overflow-hidden border-4 shadow-2xl"
+              className="w-80 h-80 mx-auto rounded-full overflow-hidden border-8 shadow-2xl profile-float"
               style={{
                 borderColor: theme.colors.primary,
                 background: theme.gradients.primary,
+                boxShadow: `0 0 40px ${theme.colors.primary}80, 0 0 80px #fff8` // enhanced lighting
               }}
               animate={{
-                boxShadow: [
-                  `0 0 0px ${theme.colors.primary}40`,
-                  `0 0 40px ${theme.colors.primary}40`,
-                  `0 0 0px ${theme.colors.primary}40`,
-                ],
+                y: [0, -20, 0, 20, 0], // floating animation
               }}
-              transition={{ duration: 3, repeat: Infinity }}
+              whileHover={{
+                scale: 1.08,
+                boxShadow: `0 0 80px ${theme.colors.primary}, 0 0 120px #fff` // more intense glow on hover
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
             >
               <img
-                src="/WhatsApp Image 2025-07-18 at 06.40.03_8134d650.jpg"
+                src="/WhatsApp Image 2025-07-24 at 13.39.02_e834edb8.jpg"
                 alt="Manjeet Kumar"
                 className="w-full h-full object-cover"
               />
             </motion.div>
-
-            {/* Orbiting Tech Icons */}
-            <div className="absolute inset-0">
-              {['⚛️', '🐳', '☸️', '🤖', '⚡', '🚀'].map((icon, index) => (
-                <motion.div
-                  key={index}
-                  className="absolute text-2xl"
-                  style={{
-                    left: '50%',
-                    top: '50%',
-                  }}
-                  animate={{
-                    rotate: 360,
-                    x: Math.cos((index * 60) * Math.PI / 180) * 180,
-                    y: Math.sin((index * 60) * Math.PI / 180) * 180,
-                  }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: 'linear',
-                  }}
-                >
-                  <motion.div
-                    animate={{ rotate: -360 }}
-                    transition={{
-                      duration: 20,
-                      repeat: Infinity,
-                      ease: 'linear',
-                    }}
-                  >
-                    {icon}
-                  </motion.div>
-                </motion.div>
-              ))}
-            </div>
           </div>
         </motion.div>
       </div>

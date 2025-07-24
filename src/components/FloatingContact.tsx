@@ -3,9 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Phone, Mail, Send } from 'lucide-react';
 import { useTheme } from '../contexts/ThemeContext';
 import { socialLinks } from '../data/portfolio';
+import { useLanguage } from '../contexts/LanguageContext';
 
 const FloatingContact: React.FC = () => {
   const { theme } = useTheme();
+  const { toggleLanguage, currentLanguage } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
   const quickActions = [
@@ -31,31 +33,52 @@ const FloatingContact: React.FC = () => {
 
   return (
     <>
-      {/* Floating Button */}
-      <motion.button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-8 right-8 z-40 p-4 rounded-full shadow-lg"
-        style={{
-          background: theme.gradients.primary,
-          color: '#ffffff',
-        }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        animate={{
-          boxShadow: [
-            `0 0 0px ${theme.colors.primary}40`,
-            `0 0 20px ${theme.colors.primary}40`,
-            `0 0 0px ${theme.colors.primary}40`,
-          ],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      >
-        <MessageCircle size={24} />
-      </motion.button>
+      {/* Floating Button Row */}
+      <div className="fixed bottom-8 right-8 z-40 flex flex-row space-x-4">
+        {/* Language Button */}
+        <motion.button
+          onClick={toggleLanguage}
+          className="p-4 rounded-full shadow-xl flex items-center justify-center"
+          style={{
+            background: theme.colors.surface + '90',
+            color: theme.colors.text,
+            border: `2px solid ${theme.colors.border}`,
+            boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
+          }}
+          whileHover={{ rotate: 360, scale: 1.1, backgroundColor: theme.colors.primary, color: '#fff' }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+        >
+          <span className="mr-1" role="img" aria-label="language">🌐</span>
+          <span className="text-xs font-medium">{currentLanguage.toUpperCase()}</span>
+        </motion.button>
+        {/* Floating Contact Button */}
+        <motion.button
+          onClick={() => setIsOpen(true)}
+          className="p-4 rounded-full shadow-xl"
+          style={{
+            background: theme.gradients.primary,
+            color: '#ffffff',
+            boxShadow: '0 4px 24px 0 rgba(0,0,0,0.18)',
+          }}
+          whileHover={{ rotate: 360, scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          animate={{
+            boxShadow: [
+              `0 0 0px ${theme.colors.primary}40`,
+              `0 0 20px ${theme.colors.primary}40`,
+              `0 0 0px ${theme.colors.primary}40`,
+            ],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        >
+          <MessageCircle size={24} />
+        </motion.button>
+      </div>
 
       {/* Contact Modal */}
       <AnimatePresence>

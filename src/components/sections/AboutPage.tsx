@@ -170,7 +170,7 @@ const AboutPage: React.FC = () => {
                 whileHover={{ scale: 1.05 }}
               >
                 <img
-                  src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg"
+                  src="/WhatsApp Image 2025-07-07 at 18.04.05_ca234677.jpg"
                   alt="Manjeet Kumar - Professional"
                   className="w-full h-full object-cover"
                 />
